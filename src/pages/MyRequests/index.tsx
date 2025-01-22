@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 
 const { Title, Text } = Typography;
 
-// Define the Donation Type
 interface Donation {
   key: string;
   address: string;
@@ -99,6 +98,25 @@ const DonationTable = () => {
       key: "quantity",
     },
     {
+      title: "Details",
+      dataIndex: "Details",
+      key: "Details",
+      render: (text, record) => {
+        return (
+          <Button
+            onClick={() => handleRowClick(record)} 
+            style={{
+              backgroundColor: "#6A0B37",
+              color: "#fff",
+              marginRight: "5px",
+            }}
+          >
+            View Details
+          </Button>
+        );
+      },
+    },
+    {
       title: "Status",
       dataIndex: "status",
       key: "status",
@@ -106,7 +124,7 @@ const DonationTable = () => {
         let color;
         switch (status) {
           case "Pending":
-            color = "#6A0B37"; 
+            color = "#6A0B37";
             break;
           case "Delivered":
             color = "green";
@@ -115,12 +133,17 @@ const DonationTable = () => {
             color = "orange";
             break;
           default:
-            color = "gray"; 
+            color = "gray";
         }
-        return <Tag color={color}>{status}</Tag>;
+        return (
+          <Tag style={{ fontSize: "14px", padding: "4px" }} color={color}>
+            {status}
+          </Tag>
+        );
       },
     },
   ];
+  
 
   return (
     <Layout>
@@ -133,7 +156,6 @@ const DonationTable = () => {
         columns={columns}
         dataSource={donations}
         onRow={(record) => ({
-          onClick: () => handleRowClick(record),
         })}
         bordered
         style={{ backgroundColor: "#fff", borderColor: "#6A0B37" }}

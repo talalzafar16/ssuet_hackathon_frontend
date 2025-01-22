@@ -1,3 +1,4 @@
+
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import Home from "../../pages/home/page.tsx";
 import Donate from '../../pages/donate/page';
@@ -5,6 +6,7 @@ import LoginSignup from '../../pages/auth/login/page';
 import NGOlogin from '../../pages/auth/NGOlogin/page';
 import Signup from '../../pages/auth/signup/page.tsx';
 import OtpScreen from '../../pages/auth/otp/page.tsx';
+import NgoDashboard from "../../pages/ngo-dashboard/overview/index.tsx";
 
 import MyRequest from "../../pages/MyRequests/index"
 const Router = () => {
@@ -17,8 +19,9 @@ const Router = () => {
         <Route path="/auth/signup" element={<Signup />} />
         <Route path="/auth/otp" element={<OtpScreen />} />
         <Route path="/auth/NGOlogin" element={<NGOlogin />} />
-        <Route path="/requests" element={
-          <MyRequest />} />
+        <Route path="/ngo-dashboard" element={<NgoDashboard />} />
+
+        <Route path="/requests" element={<MyRequest />} />
       </Routes>
     </BrowserRouter>
   );
