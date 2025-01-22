@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Button, Input, Form, Tabs, Modal } from 'antd';
+import { Button, Input, Form } from 'antd';
 import 'react-toastify/dist/ReactToastify.css';
 import toast from 'react-hot-toast';
 import { SERVER_URL } from '../../../config';
@@ -21,7 +21,7 @@ const Signup: React.FC = () => {
 
   const handleSignup = async (values: any) => {
     try {
-      const response = await axios.post(`${SERVER_URL}/auth/user/signup`, {
+      await axios.post(`${SERVER_URL}/auth/user/signup`, {
         email: values.email,
         name: values.name,
         country: values.country,
