@@ -1,6 +1,6 @@
 import  { useEffect, useState } from "react";
 import { Table, Modal, Button, Typography, Tag, Row, Col } from "antd";
-import type { ColumnsType,TablePaginationConfig  } from "antd/es/table";
+import type { ColumnsType  } from "antd/es/table";
 import Layout from "../../compoenents/layout";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -30,8 +30,8 @@ const DonationTable = () => {
   ]);
 
   const [total,setTotal]=useState(0)
-  const [currentPage, setCurrentPage] = useState(1); 
-  const [pageSize, setPageSize] = useState(10);
+  const [currentPage] = useState(1); 
+  const [pageSize] = useState(10);
   const navigate = useNavigate();
 
   const isAuthenticated = () => {
