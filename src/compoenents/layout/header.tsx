@@ -4,10 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { Avatar, Dropdown } from "antd";
 import { TiUserOutline } from "react-icons/ti";
 import { IoSettingsOutline } from "react-icons/io5";
+import { useLocation } from "react-router-dom";
+
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   let item=localStorage.getItem("user")
+  const location = useLocation();
   const navigate=useNavigate()
   // @ts-expect-error
   const [isLoggedIn, setisLoggedIn] = useState(JSON.parse(item)?.id?true:false);
@@ -43,7 +46,7 @@ Track Requests
 ]
 
   return (
-    <header className="bg-transparent text-[#6A0B37] bg-white   absolute top-0 z-20 w-[100%]">
+    <header className={`${location.pathname=="/"?"bg-transparent":"bg-white"} text-[#6A0B37]    absolute top-0 z-20 w-[100%]`}>
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
@@ -86,7 +89,7 @@ Track Requests
           className="hidden md:flex items-center space-x-4 relative"
         >
           <button onClick={()=>navigate("/donate")} className="bg-[#6A0B37] text-white  px-4 py-2 rounded-full hover:bg-orange-600 transition">
-            Dnate Now
+            Donate Now
           </button>
           {!isLoggedIn?<button onClick={()=>navigate("/auth/login")} className="bg-[#6A0B37] text-white  px-4 py-2 rounded-full hover:bg-orange-600 transition">
             Login
