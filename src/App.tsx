@@ -1,13 +1,9 @@
 import './App.css'
+import Router from './compoenents/router'
 
 function App() {
-
   return (
-    <div className='bg-black'>
-      <p className='text-red-800'>
-        Hello
-      </p>
-    </div>
+    <Router/>
   )
 }
 
