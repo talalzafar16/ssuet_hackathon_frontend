@@ -6,19 +6,21 @@ import NGOlogin from '../../pages/auth/NGOlogin/page';
 import Signup from '../../pages/auth/signup/page.tsx';
 import OtpScreen from '../../pages/auth/otp/page.tsx';
 
+import MyRequest from "../../pages/MyRequests/index"
 const Router = () => {
   return (
     <BrowserRouter>
-    <Routes>
+      <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/donate" element={<Donate />} />
         <Route path="/auth/login" element={<LoginSignup />} />
         <Route path="/auth/signup" element={<Signup />} />
         <Route path="/auth/otp" element={<OtpScreen />} />
         <Route path="/auth/NGOlogin" element={<NGOlogin />} />
+        <Route path="/requests" element={<MyRequest />} />
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
 export default Router

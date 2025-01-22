@@ -23,11 +23,14 @@ const Header = () => {
     {
       key: '2',
       label: 'Profile',
+    
       
     },
     {
       key: '3',
-      label: 'My Requests',
+      label:<p onClick={()=>navigate("/requests")}>
+My Requests
+      </p> ,
     },
     {
       key: '4',
@@ -35,17 +38,13 @@ const Header = () => {
     },
     {
       key: '6',
-      label: <p onClick={()=>{localStorage.clear();setisLoggedIn(false)}} className="text-red-600 font-bold">
+      label: <p onClick={()=>{localStorage.clear();setisLoggedIn(false)}} className="text-red-600 font-bold">Logout</p>
+}
+]
 
-        Logout
-      </p>
-      
-    },
-  ];
   return (
     <header className="bg-transparent text-[#6A0B37] bg-white   absolute top-0 z-20 w-[100%]">
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        {/* Logo Section */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -68,7 +67,7 @@ const Header = () => {
         <motion.nav
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="hidden md:flex space-x-6 font-bold "
+          className="hidden md:flex space-x-6 font-bold"
         >
           <a href="#about-us" className="hover:text-[#B32346]">
             About Us
@@ -84,7 +83,7 @@ const Header = () => {
         <motion.div
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
-          className="hidden md:flex items-center space-x-4"
+          className="hidden md:flex items-center space-x-4 relative"
         >
           <button onClick={()=>navigate("/donate")} className="bg-[#6A0B37] text-white  px-4 py-2 rounded-full hover:bg-orange-600 transition">
             Book Now
@@ -99,20 +98,18 @@ const Header = () => {
           }
         </motion.div>
 
-        {/* Mobile Menu Toggle */}
         <button
           className="md:hidden flex items-center"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           <div className="h-6 w-6 flex flex-col justify-between items-center">
-            <span className="block h-1 w-full bg-[#6A0B37] "></span>
-            <span className="block h-1 w-full bg-[#6A0B37] "></span>
-            <span className="block h-1 w-full bg-[#6A0B37] "></span>
+            <span className="block h-1 w-full bg-[#6A0B37]"></span>
+            <span className="block h-1 w-full bg-[#6A0B37]"></span>
+            <span className="block h-1 w-full bg-[#6A0B37]"></span>
           </div>
         </button>
       </div>
 
-      {/* Mobile Navigation Menu */}
       {isMenuOpen && (
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -120,16 +117,16 @@ const Header = () => {
           className="md:hidden bg-black text-white"
         >
           <nav className="flex flex-col items-center space-y-4 py-4">
-            <a href="#rewards" className="hover:text-[#6A0B37]">
+            <a href="#rewards" className="hover:text-[#B32346]">
               Rewards
             </a>
-            <a href="#about-us" className="hover:text-[#6A0B37]">
+            <a href="#about-us" className="hover:text-[#B32346]">
               About Us
             </a>
-            <a href="#contact-us" className="hover:text-[#6A0B37]">
+            <a href="#contact-us" className="hover:text-[#B32346]">
               Contact Us
             </a>
-            <button className="bg-orange-500 px-4 py-2 rounded-full hover:bg-orange-600 transition">
+            <button className="bg-orange-500 px-4 py-2 rounded-full hover:text-[#B32346] transition">
               Book Now
             </button>
             <button className="bg-orange-500 px-4 py-2 rounded-full hover:bg-orange-600 transition">
