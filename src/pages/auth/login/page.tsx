@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Button, Input, Form, Tabs, Modal } from 'antd';
 import 'react-toastify/dist/ReactToastify.css';
 import toast from 'react-hot-toast';
+import { SERVER_URL } from '../../../config';
 
 const { TabPane } = Tabs;
 
@@ -24,13 +25,13 @@ const LoginSignup: React.FC = () => {
   const handleLogin = async (values: any) => {
     try {
       if (useOtp) {
-        const response = await axios.post('http://localhost:5000/auth/user/signin', {
+        const response = await axios.post(`${SERVER_URL}/auth/user/signin`, {
           email: values.email,
           otp: values.otp,
         });
         toast.success(response.data.message);
       } else {
-        const response = await axios.post('http://localhost:5000/auth/user/signin', {
+        const response = await axios.post(`${SERVER_URL}/auth/user/signin`, {
           email: values.email,
           password: values.password,
         });
@@ -44,7 +45,7 @@ const LoginSignup: React.FC = () => {
   // Request OTP for login/signup
   const requestOtp = async (email: string) => {
     try {
-      const response = await axios.post('http://localhost:5000/auth/send_otp_for_email_verification', { email });
+      const response = await axios.post(`${SERVER_URL}/auth/send_otp_for_email_verification`, { email });
       toast.success(response.data.message);
       setOtpSent(true);
     } catch (error: any) {
@@ -55,7 +56,7 @@ const LoginSignup: React.FC = () => {
   // Verify OTP for login/signup
   const verifyOtp = async (email: string, otp: string) => {
     try {
-      const response = await axios.post('http://localhost:5000/auth/verify_email_by_otp', { email, otp });
+      const response = await axios.post(`${SERVER_URL}/auth/verify_email_by_otp`, { email, otp });
       toast.success(response.data.message);
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'OTP verification failed');
@@ -65,7 +66,7 @@ const LoginSignup: React.FC = () => {
   // Handle signup
   const handleSignup = async (values: any) => {
     try {
-      const response = await axios.post('http://localhost:5000/auth/user/signup', {
+      const response = await axios.post(`${SERVER_URL}/auth/user/signup`, {
         email: values.email,
         name: values.name,
         mobile: values.mobile,
@@ -80,7 +81,7 @@ const LoginSignup: React.FC = () => {
   // Forget password handler
   const handleForgetPassword = async (email: string) => {
     try {
-      const response = await axios.post('http://localhost:5000/auth/forget_password', { email });
+      const response = await axios.post(`${SERVER_URL}/auth/forget_password`, { email });
       toast.success(response.data.message);
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'Failed to send password reset link');
@@ -90,7 +91,7 @@ const LoginSignup: React.FC = () => {
   // Reset password handler
   const handleResetPassword = async (email: string, otp: string, newPassword: string) => {
     try {
-      const response = await axios.post('http://localhost:5000/auth/reset_password', {
+      const response = await axios.post(`${SERVER_URL}/auth/reset_password`, {
         email,
         otp,
         newPassword,

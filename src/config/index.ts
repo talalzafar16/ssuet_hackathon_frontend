@@ -1,1 +1,1 @@
-export const SERVER_URL="https://ssuet-hackathon-backend.onrender.com/"
+export const SERVER_URL="http://localhost:5000/"

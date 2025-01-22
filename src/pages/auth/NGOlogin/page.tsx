@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, Typography, Divider, Select, Modal } from 'antd';
 import axios from 'axios';
+import { SERVER_URL } from '../../../config';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -40,7 +41,7 @@ const NGOlogin = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const url = state === 'Login' ? '/auth/user/signin' : '/auth/user/signup';
+    const url = state === 'Login' ? `${SERVER_URL}/auth/user/signin` : `${SERVER_URL}/auth/user/signup`;
     try {
       const response = await axios.post(url, formData);
       console.log(`${state} success:`, response.data);
@@ -51,7 +52,7 @@ const NGOlogin = () => {
 
   const handleForgetPassword = async (email: string) => {
     try {
-      await axios.post('/auth/forget_password', { email });
+      await axios.post(`${SERVER_URL}/auth/forget_password`, { email });
       console.log('OTP sent to email');
       setShowResetModal(true); 
     } catch (error) {
@@ -61,7 +62,7 @@ const NGOlogin = () => {
 
   const handleResetPassword = async (email: string, otp: string, newPassword: string) => {
     try {
-      const response = await axios.post('/auth/reset_password', { email, otp, newPassword });
+      const response = await axios.post(`${SERVER_URL}/auth/reset_password`, { email, otp, newPassword });
       console.log('Password reset successful:', response.data);
       setShowResetModal(false);
     } catch (error) {
