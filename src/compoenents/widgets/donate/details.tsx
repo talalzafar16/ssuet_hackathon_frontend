@@ -1,7 +1,6 @@
 
 const Details = ({itemDetails,setItemDetails,setCurrent}:any) => {
   
-
   const handleChange = (e:any) => {
     const { name, value } = e.target;
     setItemDetails((prevState:any) => ({
@@ -42,7 +41,7 @@ const Details = ({itemDetails,setItemDetails,setCurrent}:any) => {
               name="quantity"
               value={itemDetails.quantity}
               onChange={handleChange}
-              className="mt-1  text-base block w-full px-3 py-1 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
+              className="mt-1 w-[300px]  text-base block px-3 py-1 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
               placeholder="Number of items"
             />
           </div>
@@ -56,7 +55,7 @@ const Details = ({itemDetails,setItemDetails,setCurrent}:any) => {
               name="condition"
               value={itemDetails.condition}
               onChange={handleChange}
-             className="mt-1  text-base w-[300px] block w-full px-3 py-1 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
+             className="mt-1  text-base w-[300px] block px-3 py-1 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
             >
               <option value="">Select Condition</option>
               <option value="new">New</option>
@@ -72,7 +71,7 @@ const Details = ({itemDetails,setItemDetails,setCurrent}:any) => {
               name="description"
               value={itemDetails.description}
               onChange={handleChange}
-              className="mt-1  text-base block w-full px-3 py-1 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
+              className="mt-1 w-[300px]  text-base block px-3 py-1 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
               placeholder="Provide any additional details about the items"
               rows={2}
             />

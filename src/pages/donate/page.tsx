@@ -6,14 +6,19 @@ import { GiClothes } from "react-icons/gi";
 import { BiDetail } from "react-icons/bi";
 import { FaHandsHelping } from "react-icons/fa";
 import { FaCalendarAlt } from "react-icons/fa";
-import Address from '../../compoenents/widgets/home/donate/Address';
-import PackageType from '../../compoenents/widgets/home/donate/type';
-import Details from '../../compoenents/widgets/home/donate/details';
+import Address from '../../compoenents/widgets/donate/Address';
+import PackageType from '../../compoenents/widgets/donate/type';
+import Details from '../../compoenents/widgets/donate/details';
+import SelectNgo from '../../compoenents/widgets/donate/ngo';
+import SchedulePickup from '../../compoenents/widgets/donate/schedulePickup';
 const Donate = () => {
 
-  const [current, setCurrent] = useState(2); 
+  const [current, setCurrent] = useState(0); 
   const [address, setAddress] = useState('');
   const [type, setType] = useState('donation');
+  const [selectedRange, setSelectedRange] = useState(null);
+  const [notes, setNotes] = useState("");
+  const [selectedNGO, setSelectedNGO] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState<any>(); 
   const [itemDetails, setItemDetails] = useState({
     itemType: '',
@@ -80,52 +85,23 @@ const Donate = () => {
                 ),
                 style: current === 4 ? { color: '#6A0B37' } : {},
               },
-              // {
-              //   status: current === 5 ? 'finish' : 'wait',
-              //   icon: (
-              //     <div className={`${ (current > 5|| current == 5)&&"text-primary"} hover:cursor-pointer flex flex-col justify-center items-center`}>
-              //     <FaLocationDot className=" text-xl" />
-              //     <span className={`text-base font-semibold mt-1`}>Submit</span>
-              //   </div>
-              //   ),
-              //   style: current === 5 ? { color: '#6A0B37' } : {},
-              // },
+              
             ]}
           />
 
-          {/* Content Area */}
           <div className="bg-white mt-4 rounded-xl shadow-md min-h-80 w-full flex justify-center py-10">
             <div className="text-gray-500 text-lg">
               {current === 0 && <Address setSelectedLocation={setSelectedLocation} selectedLocation={selectedLocation} setAddress={setAddress} setCurrent={setCurrent} />}
-              {current === 1 && <>
-              
+              {current === 1 && 
                 <PackageType type={type} setType={setType} setCurrent={setCurrent}/>
-              </>
               }
               {current === 2 && <Details itemDetails={itemDetails} setCurrent={setCurrent} setItemDetails={setItemDetails}/>}
-              {current === 3 && 'Step 4: Choose an NGO to donate to.'}
-              {current === 4 && 'Step 5: Schedule a pickup for your donation.'}
-              {current === 5 && 'Step 6: Submit your donation! Thank you!'}
+              {current === 3 && <SelectNgo selectedNGO={selectedNGO} setSelectedNGO={setSelectedNGO} setCurrent={setCurrent}/>}
+              {current === 4 && <SchedulePickup selectedRange={selectedRange} notes={notes} setNotes={setNotes} setSelectedRange={setSelectedRange} setCurrent={setCurrent}/>}
             </div>
           </div>
 
-          {/* Navigation Buttons */}
-          <div className="flex justify-between mt-5">
-            <button
-              className={`px-4 py-2 rounded-md ${current === 0 ? 'bg-gray-300' : 'bg-blue-500 text-white'}`}
-              disabled={current === 0}
-              onClick={() => setCurrent((prev) => Math.max(prev - 1, 0))}
-            >
-              Previous
-            </button>
-            <button
-              className={`px-4 py-2 rounded-md ${current === 5 ? 'bg-gray-300' : 'bg-blue-500 text-white'}`}
-              disabled={current === 5}
-              onClick={() => setCurrent((prev) => Math.min(prev + 1, 5))}
-            >
-              Next
-            </button>
-          </div>
+         
         </div>
       </div>
     </Layout>
