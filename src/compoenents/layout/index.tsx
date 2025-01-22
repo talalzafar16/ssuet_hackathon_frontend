@@ -1,14 +1,14 @@
-import { Haeder } from './header'
 import Footer from './footer'
-
+import Header from './header'
 const Layout = ({children}:{children:any}) => {
   return (
     <>
-    <Haeder/>
-    {children}
-    <Footer/>
+      <Header />
+      
+      {children}
+      <Footer />
     </>
-  )
+  );
 }
 
 export default Layout

@@ -21,7 +21,8 @@ const NGOs = [
     description: "Description of NGO Four",
   },
 ];
-let logos=["https://www.designmantic.com/logo-images/172145.png?company=Company%20Name&keyword=ngo&slogan=&verify=1","https://www.logodesign.net/logo-new/pentagon-house-with-abstract-kids-and-stars-inside-9144ld.png?nwm=1&nws=1&industry=ngo&txt_keyword=All","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnrhgcja2tzDKB2bZBpnmYCs7KVka207xKOQ&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNYxDW405Cl7rsUqqBEXRcd4ATExuTnP-G9A&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUoTKDwuMJfCixcV3Rk2FCI-t_kY_sfa7ifA&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz0oxVuB-bFoyQhVibawzeeUIYP9wcChL8ZA&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5S7Ul7-VkRRpdLnamUYUCZkYFXl_utshP2w&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6a_P9zrt5W_anB9MxH9ofugfR0dkRqZd9HA&s"]
+let logos=[
+    "https://www.designmantic.com/logo-images/172145.png?company=Company%20Name&keyword=ngo&slogan=&verify=1","https://www.logodesign.net/logo-new/pentagon-house-with-abstract-kids-and-stars-inside-9144ld.png?nwm=1&nws=1&industry=ngo&txt_keyword=All","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnrhgcja2tzDKB2bZBpnmYCs7KVka207xKOQ&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNYxDW405Cl7rsUqqBEXRcd4ATExuTnP-G9A&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUoTKDwuMJfCixcV3Rk2FCI-t_kY_sfa7ifA&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQz0oxVuB-bFoyQhVibawzeeUIYP9wcChL8ZA&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5S7Ul7-VkRRpdLnamUYUCZkYFXl_utshP2w&s","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6a_P9zrt5W_anB9MxH9ofugfR0dkRqZd9HA&s"]
 
 const SelectNgo = ({setCurrent,selectedNGO,setSelectedNGO}:any) => {
 

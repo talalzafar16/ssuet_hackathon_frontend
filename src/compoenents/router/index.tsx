@@ -1,5 +1,5 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import Home from '../../pages/home/page';
+import Home from "../../pages/home/page.tsx";
 import Donate from '../../pages/donate/page';
 import LoginSignup from '../../pages/auth/login/page';
 import NGOlogin from '../../pages/auth/NGOlogin/page';
