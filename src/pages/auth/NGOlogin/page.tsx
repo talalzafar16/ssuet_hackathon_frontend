@@ -74,13 +74,13 @@ const NGOlogin = () => {
   return (
     <Layout>
 
-    <div className="h-screen bg-gray-50 pt-32  flex items-center justify-center px-4 sm:px-8 lg:px-16">
-      <div className="max-w-sm sm:max-w-md lg:max-w-lg mx-auto p-5 bg-white shadow-lg rounded-lg w-full">
+    <div className=" bg-gray-50 pb-12 pt-32 mt-8  flex items-center justify-center px-4 sm:px-8 lg:px-16">
+      <div className="max-w-sm sm:max-w-md lg:max-w-2xl mx-auto p-5 bg-white shadow-lg rounded-lg w-full">
         <Title level={2} className="text-center text-[#6A0B37]">{state}</Title>
-        <Form onSubmitCapture={handleSubmit} layout="vertical">
+        <Form onSubmitCapture={handleSubmit} className='w-full' layout="vertical">
           {state === 'Signup' && (
             <>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
                 <Form.Item label="NGO Name" required className="col-span-1">
                   <Input
                     name="name"

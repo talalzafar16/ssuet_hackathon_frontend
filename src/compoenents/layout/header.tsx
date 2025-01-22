@@ -25,9 +25,10 @@ const Header = () => {
     },
     {
       key: '2',
-      label: 'Profile',
-    
-      
+      label:<p onClick={()=>navigate("/profile")}>
+Profile
+      </p> ,
+  
     },
     {
       key: '3',
@@ -132,9 +133,14 @@ Track Requests
             <button className="bg-orange-500 px-4 py-2 rounded-full hover:text-[#B32346] transition">
               Book Now
             </button>
-            <button className="bg-orange-500 px-4 py-2 rounded-full hover:bg-orange-600 transition">
-              Login
-            </button>
+            {!isLoggedIn?<button onClick={()=>navigate("/auth/login")} className="bg-[#6A0B37] text-white  px-4 py-2 rounded-full hover:bg-orange-600 transition">
+            Login
+          </button>:
+          // @ts-expect-error
+          <Dropdown menu={{ items }}>
+          <Avatar className="bg-primary hover:cursor-pointer" size={44} icon={<TiUserOutline />} />
+          </Dropdown>
+          }
           </nav>
         </motion.div>
       )}
