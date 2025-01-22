@@ -54,7 +54,7 @@ const Donate = () => {
   }
   return (
     <Layout>
-      <div className="bg-gray-100 py-10 px-8 flex-col flex justify-center items-center w-full h-fit">
+      <div className=" pt-40  bg-gray-50  py-10 px-8 flex-col flex justify-center items-center w-full h-fit">
         <div className="max-w-screen-lg w-full flex xs:flex-col">
           <Steps
         //   className='custom-steps flex'

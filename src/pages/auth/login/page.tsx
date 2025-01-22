@@ -4,10 +4,13 @@ import { Button, Input, Form, Tabs, Modal } from 'antd';
 import 'react-toastify/dist/ReactToastify.css';
 import toast from 'react-hot-toast';
 import { SERVER_URL } from '../../../config';
+import Layout from '../../../compoenents/layout';
+import { useNavigate } from 'react-router-dom';
 
 const { TabPane } = Tabs;
 
 const LoginSignup: React.FC = () => {
+  const navigate=useNavigate()
   const [isLogin, setIsLogin] = useState(true);
   const [useOtp, setUseOtp] = useState(true);
   const [otpSent, setOtpSent] = useState(false);
@@ -24,45 +27,23 @@ const LoginSignup: React.FC = () => {
   // Handle login
   const handleLogin = async (values: any) => {
     try {
-      if (useOtp) {
-        const response = await axios.post(`${SERVER_URL}/auth/user/signin`, {
-          email: values.email,
-          otp: values.otp,
-        });
-        toast.success(response.data.message);
-      } else {
+     
         const response = await axios.post(`${SERVER_URL}/auth/user/signin`, {
           email: values.email,
           password: values.password,
         });
-        toast.success(response.data.message);
-      }
+        console.log(response,"response")
+        localStorage.setItem("user",JSON.stringify(response.data.user))
+        toast.success("Logged in");
+        setTimeout(()=>{
+          navigate("/")
+        },2000)
+
     } catch (error: any) {
       toast.error(error.response?.data?.message || 'Login failed');
     }
   };
-
-  // Request OTP for login/signup
-  const requestOtp = async (email: string) => {
-    try {
-      const response = await axios.post(`${SERVER_URL}/auth/send_otp_for_email_verification`, { email });
-      toast.success(response.data.message);
-      setOtpSent(true);
-    } catch (error: any) {
-      toast.error(error.response?.data?.message || 'Failed to send OTP');
-    }
-  };
-
-  // Verify OTP for login/signup
-  const verifyOtp = async (email: string, otp: string) => {
-    try {
-      const response = await axios.post(`${SERVER_URL}/auth/verify_email_by_otp`, { email, otp });
-      toast.success(response.data.message);
-    } catch (error: any) {
-      toast.error(error.response?.data?.message || 'OTP verification failed');
-    }
-  };
-
+ 
   // Handle signup
   const handleSignup = async (values: any) => {
     try {
@@ -111,55 +92,21 @@ const LoginSignup: React.FC = () => {
     setShowResetModal(false);
   };
 
+  
   return (
+    <Layout>
+
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="max-w-sm mx-auto p-6 bg-white shadow-md rounded-lg sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
-        <h2 className="text-2xl font-semibold text-center mb-6">{isLogin ? 'Login' : 'Sign Up'}</h2>
+        <h2 className="text-2xl font-semibold text-center mb-6">{'Login' }</h2>
         <Form
-          onFinish={isLogin ? handleLogin : handleSignup}
+          onFinish={handleLogin }
           layout="vertical"
           initialValues={formData}
           onValuesChange={(changedValues) => setFormData({ ...formData, ...changedValues })}
         >
-          {isLogin ? (
             <Tabs defaultActiveKey="1" onChange={() => setUseOtp(!useOtp)}>
-              <TabPane tab="OTP Login" key="1">
-                <Form.Item
-                  name="email"
-                  label="Email"
-                  rules={[{ required: true, message: 'Please input your email!' }]}
-                >
-                  <Input
-                    placeholder="Email"
-                    value={formData.email}
-                    className='hover:border-[#6A0B37] focus:border-[#6A0B37] focus:ring-1 focus:ring-[#6A0B37]'
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  />
-                </Form.Item>
-                {useOtp && !otpSent && (
-                  <Button
-                    type="primary"
-                    onClick={() => requestOtp(formData.email)}
-                    className="w-full mt-4 bg-[#6A0B37] text-white hover:bg-white hover:text-[#6A0B37]"
-                  >
-                    Get OTP
-                  </Button>
-                )}
-                {otpSent && useOtp && (
-                  <Form.Item
-                    name="otp"
-                    label="Enter OTP"
-                    rules={[{ required: true, message: 'Please input OTP!' }]}
-                  >
-                    <Input
-                      placeholder="Enter OTP"
-                      value={formData.otp}
-                      className='hover:border-[#6A0B37] focus:border-[#6A0B37] focus:ring-1 focus:ring-[#6A0B37]'
-                      onChange={(e) => setFormData({ ...formData, otp: e.target.value })}
-                    />
-                  </Form.Item>
-                )}
-              </TabPane>
+           
               <TabPane tab="Password Login" key="2">
                 <Form.Item
                   name="email"
@@ -187,76 +134,13 @@ const LoginSignup: React.FC = () => {
                 </Form.Item>
               </TabPane>
             </Tabs>
-          ) : (
-            <>
-              <Form.Item
-                name="name"
-                label="Name"
-                rules={[{ required: true, message: 'Please input your name!' }]}
-              >
-                <Input
-                  placeholder="Name"
-                  value={formData.name}
-                  className='hover:border-[#6A0B37] focus:border-[#6A0B37] focus:ring-1 focus:ring-[#6A0B37]'
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                />
-              </Form.Item>
-              <Form.Item
-                name="email"
-                label="Email"
-                rules={[{ required: true, message: 'Please input your email!' }]}
-              >
-                <Input
-                  placeholder="Email"
-                  value={formData.email}
-                  className='hover:border-[#6A0B37] focus:border-[#6A0B37] focus:ring-1 focus:ring-[#6A0B37]'
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                />
-              </Form.Item>
-              <Form.Item
-                name="mobile"
-                label="Mobile Number"
-                rules={[{ required: true, message: 'Please input your mobile number!' }]}
-              >
-                <Input
-                  placeholder="Mobile Number"
-                  value={formData.mobile}
-                  className='hover:border-[#6A0B37] focus:border-[#6A0B37] focus:ring-1 focus:ring-[#6A0B37]'
-                  onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
-                />
-              </Form.Item>
-              {useOtp && !otpSent && (
-                <Button
-                  type="primary"
-                  onClick={() => requestOtp(formData.email)}
-                  className="w-full mt-4 bg-[#6A0B37] text-white hover:bg-white hover:text-[#6A0B37]"
-                >
-                  Get OTP
-                </Button>
-              )}
-              {otpSent && (
-                <Form.Item
-                  name="otp"
-                  label="Enter OTP"
-                  rules={[{ required: true, message: 'Please input OTP!' }]}
-                >
-                  <Input
-                    placeholder="Enter OTP"
-                    value={formData.otp}
-                    className='hover:border-[#6A0B37] focus:border-[#6A0B37] focus:ring-1 focus:ring-[#6A0B37]'
-                    onChange={(e) => setFormData({ ...formData, otp: e.target.value })}
-                  />
-                </Form.Item>
-              )}
-            </>
-          )}
 
           <Button
             type="primary"
             htmlType="submit"
             className="w-full mt-4 bg-[#6A0B37] text-white hover:bg-white hover:text-[#6A0B37]"
           >
-            {isLogin ? 'Login' : 'Sign Up'}
+            { 'Login'}
           </Button>
         </Form>
 
@@ -267,7 +151,7 @@ const LoginSignup: React.FC = () => {
                 Don't have an account?{' '}
                 <span
                   className="text-[#6A0B37] font-semibold cursor-pointer"
-                  onClick={() => setIsLogin(false)}
+                  onClick={() =>navigate("/auth/signup")}
                 >
                   Sign Up
                 </span>{' '}
@@ -351,6 +235,8 @@ const LoginSignup: React.FC = () => {
         </Modal>
       </div>
     </div>
+    </Layout>
+
   );
 };
 
