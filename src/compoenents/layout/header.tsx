@@ -72,10 +72,10 @@ Track Requests
           animate={{ opacity: 1, y: 0 }}
           className="hidden md:flex space-x-6 font-bold"
         >
-          <a href="#about-us" className="hover:text-[#B32346]">
+          <a href="/#about-us" className="hover:text-[#B32346]">
             About Us
           </a>
-          <a href="rewards" className=" hover:text-[#B32346]">
+          <a href="/auth/ngo-login" className=" hover:text-[#B32346]">
             Join Us As A <b>NGO</b>
           </a>
           <a href="contact-us" className="hover:text-[#B32346]">

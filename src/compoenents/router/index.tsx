@@ -22,6 +22,9 @@ const Router = () => {
         <Route path="/ngo-dashboard" element={<NgoDashboard />} />
 
         <Route path="/requests" element={<MyRequest />} />
+        <Route path="/auth/ngo-login" element={<NGOlogin />} />
+        <Route path="/requests" element={
+          <MyRequest />} />
       </Routes>
     </BrowserRouter>
   );

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Input, Button, Typography, Divider, Select, Modal } from 'antd';
 import axios from 'axios';
 import { SERVER_URL } from '../../../config';
+import Layout from '../../../compoenents/layout';
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -71,7 +72,9 @@ const NGOlogin = () => {
   };
 
   return (
-    <div className="h-screen flex items-center justify-center px-4 sm:px-8 lg:px-16">
+    <Layout>
+
+    <div className="h-screen bg-gray-50 pt-32  flex items-center justify-center px-4 sm:px-8 lg:px-16">
       <div className="max-w-sm sm:max-w-md lg:max-w-lg mx-auto p-5 bg-white shadow-lg rounded-lg w-full">
         <Title level={2} className="text-center text-[#6A0B37]">{state}</Title>
         <Form onSubmitCapture={handleSubmit} layout="vertical">
@@ -253,6 +256,8 @@ const NGOlogin = () => {
         </Form>
       </Modal>
     </div>
+    </Layout>
+
   );
 };
 

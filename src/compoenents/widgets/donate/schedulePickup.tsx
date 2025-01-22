@@ -1,13 +1,16 @@
 import getDateRanges from "../../utils";
 
 
-const SchedulePickup = ({setCurrent,notes, setNotes,selectedRange, setSelectedRange,submit}:any) => {
+const SchedulePickup = ({setCurrent,notes,setStart,setTitle,setEnd, setNotes,selectedRange, setSelectedRange,submit}:any) => {
     const dateRanges = getDateRanges();
 
   const handleSelectRange = (rangeId:any) => {
-    setSelectedRange(rangeId);
+    setSelectedRange(rangeId.id);
+    setStart(rangeId.start)
+    setEnd(rangeId.end)
+    setTitle(rangeId.label)
   };
-
+  console.log(selectedRange,"selectedRange")
   return (
    
       <div className="text-black flex w-full items-center flex-col">

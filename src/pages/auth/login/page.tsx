@@ -33,6 +33,7 @@ const LoginSignup: React.FC = () => {
           password: values.password,
         });
         console.log(response,"response")
+        localStorage.setItem("token",JSON.stringify(response.data.token))
         localStorage.setItem("user",JSON.stringify(response.data.user))
         toast.success("Logged in");
         setTimeout(()=>{

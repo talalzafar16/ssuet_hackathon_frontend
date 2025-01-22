@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { Table, Modal, Button, Typography, Tag, Row, Col } from "antd";
-import type { ColumnsType } from "antd/es/table";
+import type { ColumnsType,TablePaginationConfig  } from "antd/es/table";
 import Layout from "../../compoenents/layout";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { SERVER_URL } from "../../config";
 
 const { Title, Text } = Typography;
 
@@ -21,35 +23,14 @@ interface Donation {
 }
 
 const DonationTable = () => {
-  const [donations] = useState<Donation[]>([
-    {
-      key: "1",
-      address: "123 Main St",
-      donation_type: "Clothes",
-      quantity: 10,
-      description: "Winter clothes for donation",
-      condition: "New",
-      selected_ngo: "NGO A",
-      start_date: "2025-01-01",
-      end_date: "2025-01-10",
-      notes: "Please handle carefully",
-      status: "Picked Up",
-    },
-    {
-      key: "2",
-      address: "456 Elm St",
-      donation_type: "Books",
-      quantity: 20,
-      description: "Books for kids",
-      condition: "Used - Good",
-      selected_ngo: "NGO B",
-      start_date: "2025-02-01",
-      end_date: "2025-02-15",
-      notes: "Ensure on-time delivery",
-      status: "Delivered",
-    },
+  const [donations,setDonations] = useState<Donation[]>([
+    
+    
   ]);
 
+  const [total,setTotal]=useState(0)
+  const [currentPage, setCurrentPage] = useState(1); 
+  const [pageSize, setPageSize] = useState(10);
   const navigate = useNavigate();
 
   const isAuthenticated = () => {
@@ -70,7 +51,8 @@ const DonationTable = () => {
   const [selectedDonation, setSelectedDonation] = useState<Donation | null>(
     null
   );
-
+    // @ts-expect-error
+    let token= JSON.parse(localStorage.getItem("token"))
   const handleRowClick = (record: Donation) => {
     setSelectedDonation(record);
     setIsModalOpen(true);
@@ -143,8 +125,26 @@ const DonationTable = () => {
       },
     },
   ];
-  
-
+  const fetch=async()=>{
+    try {
+      const res = await axios.get(
+        `${SERVER_URL}/donation/get_all_user_donations?page_no=${currentPage}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setDonations(res.data.donations);
+      setTotal(res.data.total); // Update total number of records
+    } catch (error) {
+      console.error("Error fetching donations:", error);
+    }
+  }
+ 
+    useEffect(()=>{
+    fetch()
+    },[])
   return (
     <Layout>
 
@@ -154,6 +154,13 @@ const DonationTable = () => {
       </Title>
       <Table
         columns={columns}
+        pagination={{
+          current: currentPage,
+          pageSize,
+          total,
+          showSizeChanger: false,
+          // pageSizeOptions: ["5", "10", "20", "50"],
+        }}
         dataSource={donations}
         onRow={(record) => ({
         })}

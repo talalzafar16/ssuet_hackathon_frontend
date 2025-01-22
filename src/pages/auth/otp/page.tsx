@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Layout from '../../../compoenents/layout';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
@@ -33,7 +33,8 @@ const handleKeyDown = (e, index) => {
 
   const handleSubmit = async (values: any) => {
     try {
-      const response = await axios.post(`${SERVER_URL}/auth/verify_email_by_otp`, {
+        console.log(values)
+       await axios.post(`${SERVER_URL}/auth/verify_email_by_otp`, {
         email: email,
         otp: otp.join(""),
       });

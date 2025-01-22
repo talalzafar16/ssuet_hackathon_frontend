@@ -1,5 +1,5 @@
 import { Steps } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Layout from '../../compoenents/layout';
 import { FaLocationDot } from "react-icons/fa6"
 import { GiClothes } from "react-icons/gi";
@@ -14,43 +14,64 @@ import SchedulePickup from '../../compoenents/widgets/donate/schedulePickup';
 import axios from 'axios';
 import { SERVER_URL } from '../../config';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 const Donate = () => {
-
-  const [current, setCurrent] = useState(0); 
+  const navigate=useNavigate()
+    const [current, setCurrent] = useState(0); 
+    // @ts-expect-error
+    let token= JSON.parse(localStorage.getItem("token"))
   const [address, setAddress] = useState('');
   const [type, setType] = useState('donation');
   const [selectedRange, setSelectedRange] = useState(null);
   const [notes, setNotes] = useState("");
   const [selectedNGO, setSelectedNGO] = useState(null);
+  const [title, setTitle] = useState(null);
+  const [start, setStart] = useState(null);
+  const [end, setEnd] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState<any>(); 
-  console.log(selectedRange)
   const [itemDetails, setItemDetails] = useState({
     itemType: '',
     quantity: '',
     condition: '',
     description: ''
   });
-  const submit=()=>{
+  const isAuthenticated = () => {
+      const user = localStorage.getItem("user");
+      return Boolean(user);
+    };
+  
+    useEffect(() => {
+      if (!isAuthenticated()) {
+        navigate("/auth/login", { replace: true });
+      }
+    }, [navigate]);
+    if(!isAuthenticated()){
+      return 
+    }
+  const submit=async ()=>{
     let data={
         address:address,
-        type:type,
+        donation_type:type,
         item_type:itemDetails.itemType,
-        quantity:itemDetails.quantity,
+        quantity:parseInt(itemDetails.quantity),
         description:itemDetails.description,
-        condition:itemDetails.description,
-        // @ts-expect-error
-        selected_ngo:selectedNGO?.id,
+        condition:itemDetails.condition,
+        selected_ngo:selectedNGO,
         notes:notes,
-        // @ts-expect-error
-        selected_range:selectedRange?.label,
-        // @ts-expect-error
-        start_date:selectedRange?.start,
-        // @ts-expect-error
-        end_date:selectedRange?.end
+        selected_range:title,
+        start_date:start,
+        end_date:end
     }
-    // const res=axios.post(`${SERVER_URL}/`,data)
-    // if(res.)
+  await axios.post(`${SERVER_URL}/donation/create`,data,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, 
+        },
+    })
     toast.success("success")
+    setTimeout(()=>{
+      window.location.reload()
+    },2000)
   }
   return (
     <Layout>
@@ -123,7 +144,7 @@ const Donate = () => {
               }
               {current === 2 && <Details itemDetails={itemDetails} setCurrent={setCurrent} setItemDetails={setItemDetails}/>}
               {current === 3 && <SelectNgo selectedNGO={selectedNGO} setSelectedNGO={setSelectedNGO} setCurrent={setCurrent}/>}
-              {current === 4 && <SchedulePickup submit={submit} selectedRange={selectedRange} notes={notes} setNotes={setNotes} setSelectedRange={setSelectedRange} setCurrent={setCurrent}/>}
+              {current === 4 && <SchedulePickup setTitle={setTitle} setStart={setStart} setEnd={setEnd} submit={submit} selectedRange={selectedRange} notes={notes} setNotes={setNotes} setSelectedRange={setSelectedRange} setCurrent={setCurrent}/>}
             </div>
           </div>
 
