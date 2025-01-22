@@ -1,7 +1,8 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import Home from '../../pages/home/page';
 import Donate from '../../pages/donate/page';
-import { Login } from '../../pages/auth/login/page';
+import LoginSignup from '../../pages/auth/login/page';
+import NGOlogin from '../../pages/auth/NGOlogin/page';
 
 const Router = () => {
   return (
@@ -9,7 +10,8 @@ const Router = () => {
     <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/donate" element={<Donate />} />
-        <Route path="/auth/login" element={<Login />} />
+        <Route path="/auth/login" element={<LoginSignup />} />
+        <Route path="/auth/NGOlogin" element={<NGOlogin />} />
       </Routes>
     </BrowserRouter>
   )
