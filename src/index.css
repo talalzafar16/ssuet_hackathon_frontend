@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.custom-steps .ant-steps-item-process .ant-steps-item-container::before,
+        .custom-steps .ant-steps-item-finish .ant-steps-item-container::before {
+          background-color: yellow !important;
+        }
