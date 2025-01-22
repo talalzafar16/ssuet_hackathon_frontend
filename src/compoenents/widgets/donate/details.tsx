@@ -16,10 +16,9 @@ const Details = ({itemDetails,setItemDetails,setCurrent}:any) => {
     Please provide some details about the items.
     </p>
       <div className=" w-full  mt-8 ">
-          <div className="flex w-full gap-14 justify-between">
+          <div className="flex flex-wrap w-full gap-14 justify-between">
 
           <div>
-
           <div className="mb-4">
             <label htmlFor="itemType" className="block text-sm font-medium text-gray-700">Item Type</label>
             <input
@@ -28,7 +27,7 @@ const Details = ({itemDetails,setItemDetails,setCurrent}:any) => {
               name="itemType"
               value={itemDetails.itemType}
               onChange={handleChange}
-              className="mt-1 w-[300px] text-base block  px-3 py-1 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
+              className="mt-1 w-[200px] md:w-[300px] text-base block  px-3 py-1 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
               placeholder="e.g., Shirt, Pants, Jacket"
               />
           </div>
@@ -41,7 +40,7 @@ const Details = ({itemDetails,setItemDetails,setCurrent}:any) => {
               name="quantity"
               value={itemDetails.quantity}
               onChange={handleChange}
-              className="mt-1 w-[300px]  text-base block px-3 py-1 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
+              className="mt-1 w-[200px] md:w-[300px]  text-base block px-3 py-1 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
               placeholder="Number of items"
             />
           </div>
@@ -55,7 +54,7 @@ const Details = ({itemDetails,setItemDetails,setCurrent}:any) => {
               name="condition"
               value={itemDetails.condition}
               onChange={handleChange}
-             className="mt-1  text-base w-[300px] block px-3 py-1 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
+             className="mt-1  text-base w-[200px] md:w-[300px] block px-3 py-1 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
             >
               <option value="">Select Condition</option>
               <option value="new">New</option>
@@ -71,7 +70,7 @@ const Details = ({itemDetails,setItemDetails,setCurrent}:any) => {
               name="description"
               value={itemDetails.description}
               onChange={handleChange}
-              className="mt-1 w-[300px]  text-base block px-3 py-1 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
+              className="mt-1 w-[200px] md:w-[300px]  text-base block px-3 py-1 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary"
               placeholder="Provide any additional details about the items"
               rows={2}
             />

@@ -1,7 +1,7 @@
 import getDateRanges from "../../utils";
 
 
-const SchedulePickup = ({setCurrent,notes, setNotes,selectedRange, setSelectedRange}:any) => {
+const SchedulePickup = ({setCurrent,notes, setNotes,selectedRange, setSelectedRange,submit}:any) => {
     const dateRanges = getDateRanges();
 
   const handleSelectRange = (rangeId:any) => {
@@ -19,7 +19,7 @@ const SchedulePickup = ({setCurrent,notes, setNotes,selectedRange, setSelectedRa
         {dateRanges.map((range) => (
           <div
             key={range.id}
-            onClick={() => handleSelectRange(range.id)}
+            onClick={() => handleSelectRange(range)}
             className={`cursor-pointer p-4 rounded-lg border border-gray-300 text-center text-sm transition-all hover:shadow-lg ${
               selectedRange === range.id
                 ? "bg-primary text-white"
@@ -54,7 +54,7 @@ const SchedulePickup = ({setCurrent,notes, setNotes,selectedRange, setSelectedRa
             </button>
             <button
               className={`px-4 py-2 rounded-md  bg-primary text-white`}
-              onClick={() => console.log("api")}
+              onClick={() => submit()}
             >
               Submit
             </button>

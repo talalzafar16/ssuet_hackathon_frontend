@@ -35,13 +35,13 @@ const Address = ({ setCurrent,setAddress,setSelectedLocation,selectedLocation }:
 
   return (
     <div className="text-black flex w-full items-center flex-col">
-      <h1 className="text-primary font-bold text-lg">HELP US WITH YOUR EXACT LOCATION</h1>
-      <p className="text-base mt-2 text-center">
+      <h1 className="text-primary font-bold  text-lg">HELP US WITH YOUR EXACT LOCATION</h1>
+      <p className="text-sm md:text-base mt-2 text-center">
         This allows us to check if your area is<br /> within our coverage
       </p>
-      <div className="flex w-full mt-7">
+      <div className="flex flex-col gap-y-3 md:flex-row w-full mt-7">
         <input
-          className="px-4 py-[6px] border text-base rounded-tl-md rounded-bl-md w-[400px]"
+          className="px-4 py-[6px] border text-base rounded-tl-md rounded-bl-md w-full md:w-[400px]"
           placeholder="Enter your address"
           ref={(input) => initAutocomplete(input)} 
         />
