@@ -36,10 +36,10 @@ Profile
 Track Requests
       </p> ,
     },
-    {
-      key: '4',
-      label: 'My Rewards',
-    },
+    // {
+    //   key: '4',
+    //   label: 'My Rewards',
+    // },
     {
       key: '6',
       label: <p onClick={()=>{localStorage.clear();setisLoggedIn(false);navigate("/")}} className="text-red-600 font-bold">Logout</p>

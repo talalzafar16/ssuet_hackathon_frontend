@@ -6,6 +6,7 @@ import { SERVER_URL } from '../../config';
 import { EditOutlined, EditFilled } from '@ant-design/icons'; 
 import { motion } from 'framer-motion'; 
 import Layout from '../../compoenents/layout';
+import axios from 'axios';
 
 interface Profile {
   name: string;
@@ -17,14 +18,7 @@ interface Profile {
 }
 
 const ProfilePage: React.FC = () => {
-  const [profile, setProfile] = useState<Profile | null>({
-    name: 'Ismail B',
-    email: 'bajwa@meet.com',
-    phone: '123-456-7890',
-    avatar: 'https://www.nft.com/100',
-    age: 20,
-    country: 'PAK',
-  });
+  const [profile, setProfile] = useState<Profile | null>({});
   const [editMode, setEditMode] = useState<{ [key: string]: boolean }>({});
   const [form] = Form.useForm();
   const [selectedAvatar, setSelectedAvatar] = useState<File | null>(null);
@@ -83,11 +77,36 @@ const ProfilePage: React.FC = () => {
   if (!profile) {
     return <div>Loading...</div>;
   }
+  // @ts-expect-error
+  const token=JSON.parse(localStorage.getItem("token"))
+  // @ts-expect-error
+  const user=JSON.parse(localStorage.getItem("user"))
 
+  const fetch=async()=>{
+    try {
+      const res = await axios.get(
+        `${SERVER_URL}/user/get_one_by_id?id=${user.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      // setDonations(res.data.donations);
+      console.log(res.data); 
+      setProfile(res.data)
+    } catch (error) {
+      console.error("Error fetching donations:", error);
+    }
+  }
+ 
+    useEffect(()=>{
+    fetch()
+    },[])
   return (
-    <Layout>
+    <Layout className="bg-primary">
 
-    <div className="max-w-4xl mx-auto p-6 sm:px-4 md:px-8 lg:px-12">
+    <div className="max-w-4xl py-20 mx-auto p-6 sm:px-4  md:px-8 lg:px-12">
       <h2 className="text-2xl font-semibold text-center mb-6 text-[#6A0B37]">Profile Page</h2>
       <div className="flex justify-center mb-6 relative">
         <Avatar size={120} src={profile.avatar} className='border-2 border-[#6A0B37]'>
@@ -96,7 +115,7 @@ const ProfilePage: React.FC = () => {
           />
         </Avatar>
         
-        <input
+        {/* <input
           type="file"
           accept="image/*"
           onChange={handleAvatarChange}
@@ -106,12 +125,12 @@ const ProfilePage: React.FC = () => {
         
         <label htmlFor="avatar-upload" className="absolute bottom-0 right-0 p-2 bg-white rounded-full border-2 border-[#6A0B37] cursor-pointer">
           <EditOutlined className="text-[#6A0B37]" />
-        </label>
+        </label> */}
       </div>
       <Card className="shadow-lg">
         <Form layout="vertical" form={form} className='text-[#6A0B37] flex flex-col'>
           {Object.entries(profile).map(([key, value]) =>
-            key === 'avatar' ? null : (
+            key === 'avatar'||key === '_id'||key === '__v'||key === 'password' ? null : (
               <Form.Item key={key} label={key.replace(/^\w/, (c) => c.toUpperCase())} name={key}>
                 <div className="flex items-center space-x-4 text-[#6A0B37]">
                   {editMode[key] ? (
@@ -122,7 +141,7 @@ const ProfilePage: React.FC = () => {
                     </motion.div>
                   ) : (
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} className="flex items-center w-full">
-                      <span className="flex-1 font-bold" style={{ color: '#6A0B37' }}>{value}</span> {/* Changed text color */}
+                      <span className="flex-1 font-bold" style={{ color: '#6A0B37' }}>{key=="Is_email_verified"?"Yes":value}</span> {/* Changed text color */}
                       <Button type="link" onClick={() => handleEditToggle(key)} className="ml-2 text-[#6A0B37]">
                         <EditFilled />
                       </Button>
@@ -134,17 +153,6 @@ const ProfilePage: React.FC = () => {
           )}
         </Form>
       </Card>
-      <div className="flex justify-center mt-6">
-        <Button
-          type="primary"
-          danger
-          onClick={handleLogout}
-          className="h-[60px] w-[100px] sm:w-auto bg-[#6A0B37] hover:bg-white text-[#6A0B37] text-lg" // Increased button size
-        >
-          Log Out
-        </Button>
-      </div>
-      <ToastContainer position="top-center" autoClose={3000} />
     </div>
     </Layout>
 
