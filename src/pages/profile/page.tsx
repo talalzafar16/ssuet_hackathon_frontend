@@ -90,7 +90,11 @@ const ProfilePage: React.FC = () => {
     <div className="max-w-4xl mx-auto p-6 sm:px-4 md:px-8 lg:px-12">
       <h2 className="text-2xl font-semibold text-center mb-6 text-[#6A0B37]">Profile Page</h2>
       <div className="flex justify-center mb-6 relative">
-        <Avatar size={120} src={profile.avatar} className='border-2 border-[#6A0B37]'/>
+        <Avatar size={120} src={profile.avatar} className='border-2 border-[#6A0B37]'>
+          <img
+          src="/profile.jpg"
+          />
+        </Avatar>
         
         <input
           type="file"
