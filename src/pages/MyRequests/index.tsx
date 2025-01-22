@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Table, Modal, Button, Typography, Tag, Row, Col } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import Layout from "../../compoenents/layout";
+import { useNavigate } from "react-router-dom";
 
 const { Title, Text } = Typography;
 
@@ -49,6 +50,22 @@ const DonationTable = () => {
       status: "Delivered",
     },
   ]);
+
+  const navigate = useNavigate();
+
+  const isAuthenticated = () => {
+    const user = localStorage.getItem("user");
+    return Boolean(user);
+  };
+
+  useEffect(() => {
+    if (!isAuthenticated()) {
+      navigate("/", { replace: true });
+    }
+  }, [navigate]);
+  if(!isAuthenticated()){
+    return 
+  }
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDonation, setSelectedDonation] = useState<Donation | null>(

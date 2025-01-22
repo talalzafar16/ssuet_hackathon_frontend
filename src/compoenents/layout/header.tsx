@@ -29,7 +29,7 @@ const Header = () => {
     {
       key: '3',
       label:<p onClick={()=>navigate("/requests")}>
-My Requests
+Track Requests
       </p> ,
     },
     {
@@ -38,7 +38,7 @@ My Requests
     },
     {
       key: '6',
-      label: <p onClick={()=>{localStorage.clear();setisLoggedIn(false)}} className="text-red-600 font-bold">Logout</p>
+      label: <p onClick={()=>{localStorage.clear();setisLoggedIn(false);navigate("/")}} className="text-red-600 font-bold">Logout</p>
 }
 ]
 
@@ -86,7 +86,7 @@ My Requests
           className="hidden md:flex items-center space-x-4 relative"
         >
           <button onClick={()=>navigate("/donate")} className="bg-[#6A0B37] text-white  px-4 py-2 rounded-full hover:bg-orange-600 transition">
-            Book Now
+            Dnate Now
           </button>
           {!isLoggedIn?<button onClick={()=>navigate("/auth/login")} className="bg-[#6A0B37] text-white  px-4 py-2 rounded-full hover:bg-orange-600 transition">
             Login

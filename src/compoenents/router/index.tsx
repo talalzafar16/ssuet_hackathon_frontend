@@ -17,7 +17,8 @@ const Router = () => {
         <Route path="/auth/signup" element={<Signup />} />
         <Route path="/auth/otp" element={<OtpScreen />} />
         <Route path="/auth/NGOlogin" element={<NGOlogin />} />
-        <Route path="/requests" element={<MyRequest />} />
+        <Route path="/requests" element={
+          <MyRequest />} />
       </Routes>
     </BrowserRouter>
   );
