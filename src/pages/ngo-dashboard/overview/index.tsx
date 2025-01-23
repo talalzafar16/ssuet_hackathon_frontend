@@ -1,7 +1,12 @@
-import   { useState } from "react";
+// @ts-nocheck
+
+import React, { useEffect, useState } from "react";
 import { Tag, Modal, Button, Table } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { Pie, Bar } from "react-chartjs-2"; 
+import { SERVER_URL } from "../../../config";
+import { CheckOutlined } from "@ant-design/icons";
+
 import {
   Chart as ChartJS,
   ArcElement,
@@ -11,6 +16,7 @@ import {
   LinearScale,
   BarElement, 
 } from "chart.js";
+import axios from "axios";
 
 ChartJS.register(
   ArcElement,
@@ -31,10 +37,65 @@ interface DonationRequest {
 }
 
 const Dashboard: React.FC = () => {
+  const [allStatus, setallStatus] = useState(null);
+      const [requests, setrequests] = useState(null);
+const [confirmed,setConfirmed] = useState("pending")
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedRequest, setSelectedRequest] =
     useState<DonationRequest | null>(null);
 
+  const donationApi = async() => {
+      try {
+        const response = await axios.get(
+          `${SERVER_URL}/donation/get_donation_no_by_status`
+        );
+        setallStatus(response.data.donations);
+
+      } catch (error) {
+        console.log(error)
+      }
+  }
+  const donationRequest = async () => {
+    try {
+      const response = await axios.get(
+        `${SERVER_URL}/donation/get_all`,{params:{page_no:1}}
+      );
+      setrequests(response.data.donations);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const ngoid = localStorage.getItem("ngouser");
+  let obj = JSON.parse(ngoid);
+  let ngoID = obj.id
+const ConfirmRequest = async () => {
+  try {
+    const response = await axios.post(
+      `${SERVER_URL}/donation/update`,
+      {},
+      { params: { id: ngoID } }
+    );
+    console.log("API Response:", response);
+
+    donationApi();
+
+    setConfirmed("picked_up");
+  } catch (error) {
+    console.log("Error:", error);
+  }
+};
+
+
+
+  useEffect(() => {
+    donationApi();
+    donationRequest();
+  },[allStatus])
+  
+
+  
+  
   const donationRequests: DonationRequest[] = [
     {
       id: 1,
@@ -61,17 +122,35 @@ const Dashboard: React.FC = () => {
       pickupDate: "Jan 18, 2025",
     },
   ];
+const dataCounts = {
+  pending: 0,
+  delivered: 0,
+  picked_up: 0,
+};
+const pieLabels = ["Pending", "Delivered", "PickedUp"];
+  if (Array.isArray(allStatus)) {
+      //@ts-ignore
+    allStatus.forEach((item: any) => {
+      //@ts-ignore
+      if (dataCounts[item._id] !== undefined) {
+        //@ts-ignore
+        dataCounts[item._id] = item.count;
+      }
+    });
+  }
 
-  const pieData = {
-    labels: ["Pending", "Delivered", "PickedUp"],
-    datasets: [
-      {
-        data: [5, 7, 3],
-        backgroundColor: ["#FFCD56", "#4CAF50", "#6A0B37"],
-        hoverBackgroundColor: ["#FFB74D", "#66BB6A", "#A3144E"],
-      },
-    ],
-  };
+
+
+ const pieData = {
+   labels: pieLabels,
+   datasets: [
+     {
+       data: [dataCounts.pending, dataCounts.delivered, dataCounts.picked_up],
+       backgroundColor: ["#FFCD56", "#4CAF50", "#6A0B37"],
+       hoverBackgroundColor: ["#FFB74D", "#66BB6A", "#A3144E"],
+     },
+   ],
+ };
 
   const barData = {
     labels: [
@@ -100,10 +179,15 @@ const Dashboard: React.FC = () => {
   };
 
   const columns: ColumnsType<DonationRequest> = [
-    { title: "Donor Name", dataIndex: "donor", key: "donor" },
+    {
+      title: "User",
+      dataIndex: "user",
+      key: "user",
+      render: (user: any) => user?.name,
+    },
     { title: "Address", dataIndex: "address", key: "address" },
-    { title: "Items", dataIndex: "items", key: "items" },
-    { title: "Pickup Date", dataIndex: "pickupDate", key: "pickupDate" },
+    { title: "Items", dataIndex: "item_type", key: "item_type" },
+    { title: "Pickup Date", dataIndex: "start_date", key: "start_date" },
     {
       title: "Actions",
       key: "actions",
@@ -119,7 +203,14 @@ const Dashboard: React.FC = () => {
           >
             View Details
           </Button>
-          <Button style={{ backgroundColor: "#FFCD56", color: "#fff" }}>
+          <Button
+            onClick={ConfirmRequest}
+            style={{
+              backgroundColor:
+                 "#FFCD56",
+              color: "#fff",
+            }}
+          >
             Confirm
           </Button>
         </div>
@@ -136,6 +227,7 @@ const Dashboard: React.FC = () => {
     setIsModalVisible(false);
     setSelectedRequest(null);
   };
+
 
   return (
     <div
@@ -155,8 +247,26 @@ const Dashboard: React.FC = () => {
       >
         <h1>NGO Dashboard</h1>
       </header>
-
+      <div 
+        
+        style={{
+          marginTop: "20px",
+          backgroundColor: "white",
+          padding: "20px",
+          borderRadius: "8px",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+        }}
+      >
+        <h3 style={{ color: "#6A0B37" }}>Donation Requests</h3>
+        <Table
+          dataSource={requests}
+          columns={columns}
+          rowKey="id"
+          pagination={{ pageSize: 5 }}
+        />
+      </div>
       <div
+        className="flex justify-center w-[100vw]"
         style={{
           display: "flex",
           justifyContent: "space-between",
@@ -175,37 +285,6 @@ const Dashboard: React.FC = () => {
           <h3 style={{ color: "#6A0B37" }}>Donation Status</h3>
           <Pie data={pieData} />
         </div>
-
-        <div
-          style={{
-            flex: "0.45",
-            backgroundColor: "white",
-            padding: "20px",
-            borderRadius: "8px",
-            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-          }}
-        >
-          <h3 style={{ color: "#6A0B37" }}>Monthly Donations</h3>
-          <Bar data={barData} />
-        </div>
-      </div>
-
-      <div
-        style={{
-          marginTop: "20px",
-          backgroundColor: "white",
-          padding: "20px",
-          borderRadius: "8px",
-          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-        }}
-      >
-        <h3 style={{ color: "#6A0B37" }}>Donation Requests</h3>
-        <Table
-          dataSource={donationRequests}
-          columns={columns}
-          rowKey="id"
-          pagination={{ pageSize: 5 }}
-        />
       </div>
 
       {/* Modal for Viewing Details */}
@@ -217,26 +296,26 @@ const Dashboard: React.FC = () => {
           footer={null}
         >
           <p>
-            <strong>Donor:</strong> {selectedRequest.donor}
+            <strong>Donor:</strong> {selectedRequest?.user?.name}
           </p>
           <p>
-            <strong>Address:</strong> {selectedRequest.address}
+            <strong>Address:</strong> {selectedRequest?.address}
           </p>
           <p>
-            <strong>Items:</strong> {selectedRequest.items}
+            <strong>Items:</strong> {selectedRequest?.item_type}
           </p>
           <p>
             <strong>Status:</strong>{" "}
             <Tag
               color={
-                selectedRequest.status === "Delivered" ? "green" : "#6A0B37"
+                selectedRequest?.status === "delivered" ? "green" : "#6A0B37"
               }
             >
-              {selectedRequest.status}
+              {selectedRequest?.status}
             </Tag>
           </p>
           <p>
-            <strong>Pickup Date:</strong> {selectedRequest.pickupDate}
+            <strong>Pickup Date:</strong> {selectedRequest?.start_date}
           </p>
         </Modal>
       )}
