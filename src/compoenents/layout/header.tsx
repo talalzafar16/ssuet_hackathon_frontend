@@ -47,7 +47,7 @@ Track Requests
 
   return (
     <header className={`${location.pathname=="/"?"bg-transparent":"bg-white"} text-[#6A0B37]    absolute top-0 z-20 w-[100%]`}>
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+      <div className="container mx-auto px-0 py-4 flex items-center justify-between">
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -60,9 +60,9 @@ Track Requests
           /> */}
           <a href="/">
 
-          <div>
-            <h1 className="text-white  text-lg font-bold">Heart Hand</h1>
-            <p className="text-sm text-white ">Share at Door Step</p>
+          <div >
+            <h1 className={`${location.pathname=="/"?"text-white ":"text-primary"}  text-xl font-extrabold`}>Heart Hand</h1>
+            <p className={`${location.pathname=="/"?"text-white ":"text-primary"}  text-sm `}>Share at Door Step</p>
           </div>
           </a>
         </motion.div>
