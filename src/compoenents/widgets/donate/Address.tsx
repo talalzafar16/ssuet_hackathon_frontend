@@ -6,10 +6,7 @@ const containerStyle = {
   height: '300px', 
 };
 
-const defaultCenter = {
-  lat: 37.7749,
-  lng: -122.4194, 
-};
+
 
 const Address = ({ setCurrent,setAddress,setSelectedLocation,selectedLocation }: any) => {
   const [showMap, setShowMap] = useState(false);

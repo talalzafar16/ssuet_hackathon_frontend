@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { Form, Input, Button, Typography, Divider, Select, Modal } from 'antd';
 import axios from 'axios';
 import { SERVER_URL } from '../../../config';

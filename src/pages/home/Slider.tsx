@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import   { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 const logos = [
@@ -13,7 +13,7 @@ const logos = [
 const LogoSlider = () => {
    const [inView, setInView] = useState(false);
     const sectionRef = useRef(null);
-  
+  console.log(inView)
     useEffect(() => {
       const observer = new IntersectionObserver(
         ([entry]) => {

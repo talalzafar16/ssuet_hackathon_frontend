@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import   { useEffect, useState } from 'react';
 import { Avatar, Card, Form, Input, Button } from 'antd';
 import 'react-toastify/dist/ReactToastify.css';
 import { SERVER_URL } from '../../config';
