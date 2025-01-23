@@ -78,7 +78,7 @@ Track Requests
           <a href="/auth/ngo-login" className=" hover:text-[#B32346]">
             Join Us As A <b>NGO</b>
           </a>
-          <a href="contact-us" className="hover:text-[#B32346]">
+          <a href="#footer" className="hover:text-[#B32346]">
             Contact Us
           </a>
         </motion.nav>

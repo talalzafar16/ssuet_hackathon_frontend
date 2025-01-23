@@ -1,7 +1,7 @@
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-700 text-white py-8">
+    <footer id="footer" className="bg-[#6A0B37] text-white py-8">
       <div className="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
         {/* Newsletter Subscription */}
         <div>
@@ -12,68 +12,78 @@ const Footer = () => {
             <input
               type="email"
               placeholder="Email address"
-              className="w-full py-2 px-4 rounded-l-md text-gray-900 focus:outline-none"
+              className="w-full py-2 px-5 mx-0 rounded-l-md text-gray-900 focus:outline-none"
             />
-            <button className="bg-pink-500 px-4 py-2 rounded-r-md text-white font-semibold hover:bg-pink-600">
+            <button className="border-1 bg-white text-[#6A0B37] px-4 py-2 mx-0 rounded-sm font-semibold hover:bg-[#6A0B37] hover:text-white">
               &gt;
             </button>
+
           </div>
         </div>
 
 
 
         {/* About */}
-        <div>
-          <h4 className="font-semibold text-lg mb-4">About</h4>
-          <ul className="space-y-2">
-            <li>Our Story</li>
-            <li>Benefits</li>
-            <li>Team</li>
-            <li>Careers</li>
-          </ul>
-        </div>
+    <div>
+      <h4 className="font-semibold text-lg mb-4">About Us</h4>
+      <ul className="space-y-2">
+        <li><a href="#" className="hover:underline">Our Story</a></li>
+        <li><a href="#" className="hover:underline">Benefits</a></li>
+        <li><a href="#" className="hover:underline">Team</a></li>
+        <li><a href="#" className="hover:underline">Careers</a></li>
+      </ul>
+    </div>
 
-        {/* Help */}
-        <div>
-          <h4 className="font-semibold text-lg mb-4">Help</h4>
-          <ul className="space-y-2">
-            <li>FAQs</li>
-            <li>Contact Us</li>
-          </ul>
-        </div>
-      </div>
+    {/* Help */}
+    <div>
+      <h4 className="font-semibold text-lg mb-4">Help</h4>
+      <ul className="space-y-2">
+        <li><a href="#" className="hover:underline">FAQs</a></li>
+        <li><a href="#" className="hover:underline">Contact Us</a></li>
+      </ul>
+    </div>
 
-      {/* Footer Bottom */}
-      <div className="container mx-auto px-4 mt-8 border-t border-gray-700 pt-6 flex flex-col md:flex-row items-center justify-between">
-        <div className="flex space-x-4 text-sm">
-          <a href="#" className="hover:underline">
-            Terms & Conditions
-          </a>
-          <a href="#" className="hover:underline">
-            Privacy Policy
-          </a>
-        </div>
-        <div className="mt-4 md:mt-0 flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6">
-          <a
-            href="#"
-            className="bg-white text-gray-900 px-4 py-2 rounded-md font-semibold hover:bg-gray-200"
-          >
-            Donate
-          </a>
-          <div className="flex space-x-4">
-            <a href="#" className="hover:text-pink-500">
-              <i className="fab fa-facebook-f"></i>
-            </a>
-            <a href="#" className="hover:text-pink-500">
-              <i className="fab fa-twitter"></i>
-            </a>
-            <a  className="hover:text-pink-500">
-              <i className="fab fa-instagram"></i>
-            </a>
-          </div>
-        </div>
+    {/* Location */}
+    <div>
+      <h4 className="font-semibold text-lg mb-4">Location</h4>
+      <p>NED University, Karachi, Sindh, 75050</p>
+      <p>Email: <a href="mailto:info@hearthand.com" className="hover:underline">info@hearthand.com</a></p>
+      <p>+92 3363420592</p>
+    </div>
+
+    {/* Social Media Links */}
+    <div>
+      <h4 className="font-semibold text-lg mb-4">Follow Us</h4>
+      <div className="flex space-x-4">
+        <a href="www.facebook.com" className="w-12 h-12 flex justify-center items-center rounded-full hover:text-[#6A0B37] hover:bg-white transition duration-300">
+          <i className="fab fa-facebook-f text-3xl"></i>
+        </a>
+        <a href="www.twitter.com" className="w-12 h-12 flex justify-center items-center rounded-full hover:text-[#6A0B37] hover:bg-white transition duration-300">
+          <i className="fab fa-twitter text-3xl"></i>
+        </a>
+        <a href="www.instagram.com" className="w-12 h-12 flex justify-center items-center rounded-full hover:text-[#6A0B37] hover:bg-white transition duration-300">
+          <i className="fab fa-instagram text-3xl"></i>
+        </a>
       </div>
-    </footer>
+    </div>
+  </div>
+
+  {/* Footer Bottom */}
+  <div className="flex justify-between container mx-auto px-4 mt-8 border-t border-white-700 pt-6 flex-col md:flex-row items-center">
+    <div className="flex space-x-4 text-sm">
+      <a href="#" className="hover:underline">Terms & Conditions</a>
+      <a href="#" className="hover:underline">Privacy Policy</a>
+    </div>
+    <div className="flex justify-center mt-4 md:mt-0">
+      <a
+        href="#"
+        className="relative w-32 text-center bg-white text-gray-900 px-4 py-2 rounded-md font-semibold hover:text-[#6A0B37] hover:bg-white transition duration-300"
+      >
+        Donate
+      </a>
+    </div>
+  </div>
+</footer>
   );
 };
 
