@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, Card, Form, Input, Button, Space } from 'antd';
-import { ToastContainer, toast } from 'react-toastify';
+import { Avatar, Card, Form, Input, Button } from 'antd';
 import 'react-toastify/dist/ReactToastify.css';
 import { SERVER_URL } from '../../config';
-import { EditOutlined, EditFilled } from '@ant-design/icons'; 
+import {  EditFilled } from '@ant-design/icons'; 
 import { motion } from 'framer-motion'; 
 import Layout from '../../compoenents/layout';
 import axios from 'axios';
@@ -18,16 +17,17 @@ interface Profile {
 }
 
 const ProfilePage: React.FC = () => {
+  // @ts-expect-error
   const [profile, setProfile] = useState<Profile | null>({});
   const [editMode, setEditMode] = useState<{ [key: string]: boolean }>({});
   const [form] = Form.useForm();
-  const [selectedAvatar, setSelectedAvatar] = useState<File | null>(null);
 
   const handleEditToggle = (field: string) => {
     setEditMode((prev) => ({ ...prev, [field]: !prev[field] }));
   };
 
-  const handleSave = async (field: string) => {
+  const handleSave = async (field?: string) => {
+    console.log(field)
     // try {
     //   const updatedValue = form.getFieldValue(field);
     //   const response = await fetch(`${SERVER_URL}/user/update_one_by_id?id=${userId}`, {
@@ -47,32 +47,6 @@ const ProfilePage: React.FC = () => {
     // }
   };
 
-  const handleLogout = async () => {
-    // try {
-    //   localStorage.removeItem('userId');
-    //   toast.success('Logged out successfully!');
-    //   window.location.href = '/login'; 
-    // } catch (error) {
-    //   toast.error('Failed to log out.');
-    //   }
-    toast.success('Logged out successfully!');
-    window.location.href = '/login'; 
-  };
-
-  const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files ? event.target.files[0] : null;
-    if (file) {
-      setSelectedAvatar(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfile((prev) => ({
-          ...prev!,
-          avatar: reader.result as string,  
-        }));
-      };
-      reader.readAsDataURL(file);
-    }
-  };
 
   if (!profile) {
     return <div>Loading...</div>;
@@ -135,7 +109,7 @@ const ProfilePage: React.FC = () => {
                 <div className="flex items-center space-x-4 text-[#6A0B37]">
                   {editMode[key] ? (
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} className="flex flex-row items-center w-full">
-                      <Input defaultValue={value} className="flex flex-row w-full w-max " />
+                      <Input defaultValue={value} className="flex flex-row w-full  " />
                       <Button type="primary" className="ml-2 bg-[#6A0B37] text-white" onClick={() => handleSave(key)}>Save</Button>
                       <Button onClick={() => handleEditToggle(key)} className="ml-2">Cancel</Button>
                     </motion.div>

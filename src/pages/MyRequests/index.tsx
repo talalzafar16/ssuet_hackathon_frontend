@@ -84,6 +84,7 @@ const DonationTable = () => {
       dataIndex: "Details",
       key: "Details",
       render: (text, record) => {
+        console.log(text)
         return (
           <Button
             onClick={() => handleRowClick(record)} 
@@ -162,8 +163,7 @@ const DonationTable = () => {
           // pageSizeOptions: ["5", "10", "20", "50"],
         }}
         dataSource={donations}
-        onRow={(record) => ({
-        })}
+      
         bordered
         style={{ backgroundColor: "#fff", borderColor: "#6A0B37" }}
       />

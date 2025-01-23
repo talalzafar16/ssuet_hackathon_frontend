@@ -51,15 +51,7 @@ const NGOlogin = () => {
     }
   };
 
-  const handleForgetPassword = async (email: string) => {
-    try {
-      await axios.post(`${SERVER_URL}/auth/forget_password`, { email });
-      console.log('OTP sent to email');
-      setShowResetModal(true); 
-    } catch (error) {
-      console.error('Error sending OTP:', error);
-    }
-  };
+  
 
   const handleResetPassword = async (email: string, otp: string, newPassword: string) => {
     try {

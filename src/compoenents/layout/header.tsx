@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Avatar, Dropdown } from "antd";
 import { TiUserOutline } from "react-icons/ti";
-import { IoSettingsOutline } from "react-icons/io5";
 import { useLocation } from "react-router-dom";
 
 

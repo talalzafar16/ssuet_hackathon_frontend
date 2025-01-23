@@ -13,7 +13,6 @@ const LoginSignup: React.FC = () => {
   const navigate=useNavigate()
   const [isLogin, setIsLogin] = useState(true);
   const [useOtp, setUseOtp] = useState(true);
-  const [otpSent, setOtpSent] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -24,7 +23,6 @@ const LoginSignup: React.FC = () => {
   });
   const [showResetModal, setShowResetModal] = useState(false);
 
-  // Handle login
   const handleLogin = async (values: any) => {
     try {
      
@@ -32,7 +30,6 @@ const LoginSignup: React.FC = () => {
           email: values.email,
           password: values.password,
         });
-        console.log(response,"response")
         localStorage.setItem("token",JSON.stringify(response.data.token))
         localStorage.setItem("user",JSON.stringify(response.data.user))
         toast.success("Logged in");
@@ -45,32 +42,8 @@ const LoginSignup: React.FC = () => {
     }
   };
  
-  // Handle signup
-  const handleSignup = async (values: any) => {
-    try {
-      const response = await axios.post(`${SERVER_URL}/auth/user/signup`, {
-        email: values.email,
-        name: values.name,
-        mobile: values.mobile,
-        otp: values.otp,
-      });
-      toast.success(response.data.message);
-    } catch (error: any) {
-      toast.error(error.response?.data?.message || 'Signup failed');
-    }
-  };
 
-  // Forget password handler
-  const handleForgetPassword = async (email: string) => {
-    try {
-      const response = await axios.post(`${SERVER_URL}/auth/forget_password`, { email });
-      toast.success(response.data.message);
-    } catch (error: any) {
-      toast.error(error.response?.data?.message || 'Failed to send password reset link');
-    }
-  };
 
-  // Reset password handler
   const handleResetPassword = async (email: string, otp: string, newPassword: string) => {
     try {
       const response = await axios.post(`${SERVER_URL}/auth/reset_password`, {
